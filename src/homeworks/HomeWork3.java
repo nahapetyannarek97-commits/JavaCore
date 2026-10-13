@@ -1,4 +1,4 @@
-package homework3;
+package homeworks;
 
 public class HomeWork3 {
     public static void main(String[] args) {
@@ -25,7 +25,7 @@ public class HomeWork3 {
 
         System.out.println(numbers[numbers.length / 2]);
 
-        // System.out.println(numbers[numbers.length / 2 - 1]);
+        System.out.println(numbers[numbers.length / 2 - 1]);
 
         if (numbers.length <= 2) {
             System.out.println("Cant print middle values");
@@ -39,14 +39,13 @@ public class HomeWork3 {
         System.out.println(evenNumbers);
 
 
-//        int oddNumbers = 0;
-//        for (int i = 0; i < numbers.length; i++) {
-//            if (numbers[i] % 2 != 0) {
-//              oddNumbers++;
-//            }
-//        }
-//        System.out.print(oddNumbers);
-        // sxal kashxati
+        int oddNumbers = 0;
+        for (int i = 0; i < numbers.length; i++) {
+            if (numbers[i] % 2 != 0) {
+                oddNumbers++;
+            }
+        }
+        System.out.print(oddNumbers);
 
         int sum = 0;
         for (int i = 0; i < numbers.length; i++) {
