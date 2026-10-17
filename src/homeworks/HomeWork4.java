@@ -10,14 +10,19 @@ public class HomeWork4 {
                 count++;
             }
         }
-        System.out.println("count of 6; " + count);
+        System.out.println("count of 6: " + count);
 
-        for (int i = 0; i < numbers.length; i++) {
-            int swap = numbers.length;
-            System.out.print(numbers[numbers.length - 1 - i] + " ");
+        for (int i = 0; i < numbers.length / 2; i++) {
+            int temp = numbers[i];
+            numbers[i] = numbers[numbers.length - 1 - i];
+            numbers[numbers.length - 1 - i] = temp;
         }
 
+        for (int i = 0; i < numbers.length; i++) {
+            System.out.print(numbers[i] + " ");
+        }
         System.out.println();
+
         int repnumbers = 0;
         for (int i = 0; i < numbers.length; i++) {
             boolean alreadyChecked = false;
@@ -26,18 +31,19 @@ public class HomeWork4 {
                     alreadyChecked = true;
                     break;
                 }
-                if(alreadyChecked){
-                    continue;
+            }
+            if (alreadyChecked) {
+                continue;
+            }
+
+            int currentCount = 0;
+            for (int k = 0; k < numbers.length; k++) {
+                if (numbers[k] == numbers[i]) {
+                    currentCount++;
                 }
-                int count1 = 0;
-                for (int k = 0; k < numbers.length; k++) {
-                    if(numbers[k] == numbers[i]){
-                        count++;
-                    }
-                }
-                if(count > 1){
-                    repnumbers++;
-                }
+            }
+            if (currentCount > 1) {
+                repnumbers++;
             }
         }
         System.out.println(repnumbers);
@@ -46,9 +52,12 @@ public class HomeWork4 {
         int vowelsCount = 0;
         for (int i = 0; i < chars.length; i++) {
             char c = chars[i];
-            if(c  == 'ա' ||c  == 'ե' ||c  == 'է' ||c  == 'ը' ||c  == 'ի' ||c  == 'օ' ||c  == 'ո' ||c  == 'ւ'){
-               vowelsCount++;
-           }
+            if (c == 'ա' || c == 'ե' || c == 'է' || c == 'ը' || c == 'ի' || c == 'օ') {
+                vowelsCount++;
+            } else if (c == 'ո' && i + 1 < chars.length && chars[i + 1] == 'ւ') {
+                vowelsCount++;
+                i++;
+            }
         }
         System.out.println(vowelsCount);
     }
