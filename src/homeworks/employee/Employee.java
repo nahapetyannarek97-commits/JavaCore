@@ -43,7 +43,7 @@ public class Employee {
             return employeeID;
         }
 
-        public void setEmployeeID(String phone) {
+        public void setEmployeeID(String employeeID) {
             this.employeeID = employeeID;
         }
 
