@@ -2,60 +2,162 @@ package homeworks.employee;
 
 public class EmployeeStorage {
 
-    private Employee[] array = new Employee[10];
+    private Employee[] employees = new Employee[10];
     private int size = 0;
 
-    public void add(Employee e) {
-        if (size == array.length) {
-            extend();
+    public void add(Employee employee) {
+
+        if (employee == null) {
+            return;
         }
-        array[size++] = e;
+
+        if (getById(employee.getEmployeeID()) != null) {
+            System.out.println("Employee already exists.");
+            return;
+        }
+
+        if (size == employees.length) {
+            Employee[] newEmployees = new Employee[employees.length * 2];
+
+            for (int i = 0; i < size; i++) {
+                newEmployees[i] = employees[i];
+            }
+
+            employees = newEmployees;
+        }
+
+        employees[size++] = employee;
+
+        System.out.println("Employee successfully added!");
     }
 
-    private void extend() {
-        Employee[] tmp = new Employee[array.length + 10];
-        System.arraycopy(array, 0, tmp, 0, array.length);
-        array = tmp;
+    public void printAll() {
+
+        if (size == 0) {
+            System.out.println("No employees found.");
+            return;
+        }
+
+        for (int i = 0; i < size; i++) {
+
+            Employee employee = employees[i];
+
+            System.out.println("Employee ID: " +
+                    employee.getEmployeeID());
+
+            System.out.println("Name: " +
+                    employee.getName() + " " +
+                    employee.getSurname());
+
+            System.out.println("Salary: " +
+                    employee.getSalary());
+
+            System.out.println("Position: " +
+                    employee.getPosition());
+
+            System.out.println("Company: " +
+                    employee.getCompany().getName());
+
+            System.out.println("-------------------------");
+        }
     }
 
-    public Employee getByIndex(int index) {
-        if (index >= 0 && index < size) {
-            return array[index];
+    public Employee getById(String id) {
+
+        for (int i = 0; i < size; i++) {
+
+            if (employees[i].getEmployeeID().equals(id)) {
+                return employees[i];
+            }
         }
+
         return null;
     }
 
-    public void print() {
-        for (int i = 0; i < size; i++) {
-            System.out.print(array[i] + " ");
-        }
-        System.out.println();
-    }
+    public void printByCompanyName(String name) {
 
-    public void search(String keyword) {
+        boolean found = false;
+
         for (int i = 0; i < size; i++) {
-            if (array[i].getName().contains(keyword)
-                    || array[i].getSurname().contains(keyword)) {
-                System.out.println(array[i] + " ");
+
+            Employee employee = employees[i];
+
+            if (employee.getCompany().getName()
+                    .equalsIgnoreCase(name)) {
+
+                System.out.println(
+                        employee.getEmployeeID() + " - " +
+                                employee.getName() + " " +
+                                employee.getSurname()
+                );
+
+                found = true;
             }
         }
-    }
 
-    public void searchByEmployeeID(String employeeID) {
-        for (int i = 0; i < size; i++) {
-            if (array[i].getEmployeeID().equalsIgnoreCase(employeeID)) {
-                System.out.println(array[i] + " ");
-            }
+        if (!found) {
+            System.out.println("No employees found.");
         }
     }
 
-    public void searchByCompany(String company) {
+    public void printByCompanyId(String id) {
+
+        boolean found = false;
+
         for (int i = 0; i < size; i++) {
-            if (array[i].getEmployeeID().equalsIgnoreCase(company)) {
-                System.out.println(array[i] + " ");
+
+            Employee employee = employees[i];
+
+            if (employee.getCompany().getCompanyId().equals(id)) {
+
+                System.out.println(
+                        employee.getEmployeeID() + " - " +
+                                employee.getName() + " " +
+                                employee.getSurname()
+                );
+
+                found = true;
             }
+        }
+
+        if (!found) {
+            System.out.println("No employees found.");
         }
     }
 
+// Bonus 1
+
+    public int countEmployeesByCompany(String id) {
+
+        int count = 0;
+
+        for (int i = 0; i < size; i++) {
+
+            if (employees[i].getCompany()
+                    .getCompanyId().equals(id)) {
+
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+// Bonus 2
+    public double calculateTotalSalaryByCompany(String id) {
+
+        double total = 0;
+
+        for (int i = 0; i < size; i++) {
+
+            if (employees[i].getCompany()
+                    .getCompanyId().equals(id)) {
+
+                total += employees[i].getSalary();
+            }
+        }
+
+        return total;
+    }
 }
 
